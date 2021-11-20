@@ -1,14 +1,20 @@
 package web.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import web.model.User;
 import web.service.UserService;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(path = "/")
@@ -25,21 +31,12 @@ public class UserController {
 		return "login";
 	}
 
-	@GetMapping(path ="admin")
-	public String getAdminPage(ModelMap model) {
-		List<String> messages = new ArrayList<>();
-		messages.add("Hello Admin!");
-		messages.add("Let's edit users list?");
-		model.addAttribute("message", messages);
-		return "admin";
-	}
-
 	@GetMapping(path = "user")
-	public String getUserPage(ModelMap modelmap,
+	public String getUserList(Model model,
 							  Principal principal) {
-		modelmap.addAttribute("name",
-				userService.getUserByEmail(principal.getName())
-		);
+		model.addAttribute("principal", principal.getName());
+		model.addAttribute("authorities", "ROLE_USER");
 		return "user";
 	}
+
 }
