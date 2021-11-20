@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+    <div>
+        <h3>You are Welcome!</h3>
+        <h3 th:text="${name}"></h3>
+    </div>
+    <div th:replace="fragments/template :: logout"></div>
+</body>
+</html>

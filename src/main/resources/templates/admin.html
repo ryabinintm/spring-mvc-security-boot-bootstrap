@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+    <div>
+        <th:block th:each="msg : ${message}">
+            <h3 th:text="${msg}"></h3>
+        </th:block>
+        <hr>
+        <a th:href="@{/admin/users}">Users list</a>
+    </div>
+    <div th:replace="fragments/template :: logout"></div>
+</body>
+</html>
