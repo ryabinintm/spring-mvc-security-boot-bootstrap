@@ -2,7 +2,6 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,6 @@ import web.service.UserService;
 
 import java.security.Principal;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,13 +33,16 @@ public class AdminController {
                               Principal principal,
                               Authentication authentication,
                               @ModelAttribute("user") User user) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+        final String authorities = authentication.getAuthorities().stream()
+                .map(Object::toString)
                 .collect(Collectors.joining(", "));
+        final Set<String> roleSet = roleRepository.findAll().stream()
+                .map(Role::getRole)
+                .collect(Collectors.toSet());
         model.addAttribute("principal", principal.getName());
         model.addAttribute("authorities", authorities);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleSet);
         return "admin";
     }
 
@@ -59,7 +59,12 @@ public class AdminController {
     }
 
     @PostMapping
-    public String postNewUser(@ModelAttribute("user") User user) {
+    public String postNewUser(@ModelAttribute("user") User user,
+                              @RequestParam(value = "userRoles") String[] userRoles) {
+        final Set<Role> roleSet = Arrays.stream(userRoles)
+                .map(Role::new)
+                .collect(Collectors.toSet());
+        user.setRoles(roleSet);
         userService.createUser(user);
         return "redirect:/admin";
     }
@@ -71,13 +76,13 @@ public class AdminController {
         return "users/edit";
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping()
     public String putUser(@ModelAttribute("user") User user,
-                            @RequestParam("value = roles") String[] userRoles) {
-        /*final Set<Role> roleSet = Arrays.stream(userRoles)
-                .map(roleRepository::getRoleByName)
+                          @RequestParam(value = "userRoles") String[] userRoles) {
+        final Set<Role> roleSet = Arrays.stream(userRoles)
+                .map(Role::new)
                 .collect(Collectors.toSet());
-        user.setRoles(roleSet);*/
+        user.setRoles(roleSet);
         userService.updateUser(user);
         return "redirect:/admin";
     }
