@@ -12,6 +12,8 @@ import web.service.UserService;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,8 @@ public class AdminController {
         final Set<String> roleSet = roleRepository.findAll().stream()
                 .map(Role::getRole)
                 .collect(Collectors.toSet());
+        final List<String> userRoles = authentication.getAuthorities().stream().map(Objects::toString).collect(Collectors.toList());
+        model.addAttribute("userRoles", userRoles);
         model.addAttribute("principal", principal.getName());
         model.addAttribute("authorities", authorities);
         model.addAttribute("users", userService.getAllUsers());

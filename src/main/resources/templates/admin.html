@@ -25,11 +25,21 @@
     </div>
 </div> <!-- /Navigation Header -->
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-            <br>
+        <!-- Left Column -->
+        <div class="col-md-2 bg-white">
+            <nav class="nav flex-column nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/user">User</a>
+                </li>
+            </nav>
+        </div>
+        <!-- Right Column -->
+        <div class="col-md-10 bg-light mt-2">
             <h1>Admin panel</h1>
             <!-- Navigation Tabs (Users table & New user) -->
             <ul class="nav nav-tabs">
@@ -54,14 +64,14 @@
                             <table class="table table-striped table-condensed">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Firstname</th>
-                                    <th scope="col">Lastname</th>
-                                    <th scope="col">Age</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Roles</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
+                                    <th>ID</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,7 +147,7 @@
                                                                    class="font-weight-bold mt-3 mb-0">Password</label>
                                                             <input type="password" class="form-control"
                                                                    id="password-edit" th:name="password">
-                                                             <!--EDIT USER: ROLES-->
+                                                            <!--EDIT USER: ROLES-->
                                                             <select class="form-select w-100" size="2" id="role"
                                                                     name="userRoles">
                                                                 <option
@@ -162,7 +172,8 @@
                                     </div> <!-- /Modal Edit user -->
 
                                     <!-- Modal Delete user -->
-                                    <div class="modal fade" th:id="${'delete' + user.id}" aria-hidden="true" role="dialog"
+                                    <div class="modal fade" th:id="${'delete' + user.id}" aria-hidden="true"
+                                         role="dialog"
                                          th:aria-labelledby="${'delete' + user.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -189,20 +200,24 @@
                                                             <!-- DELETE USER: FIRSTNAME -->
                                                             <label for="firstname-delete"
                                                                    class="font-weight-bold mt-3 mb-0">Firstname</label>
-                                                            <input type="text" class="form-control" id="firstname-delete"
-                                                                   th:name="firstName" th:value="${user.firstName}" readonly>
+                                                            <input type="text" class="form-control"
+                                                                   id="firstname-delete"
+                                                                   th:name="firstName" th:value="${user.firstName}"
+                                                                   readonly>
                                                             <!-- DELETE USER: LASTNAME -->
                                                             <label for="lastname-delete"
                                                                    class="font-weight-bold mt-3 mb-0">Lastname</label>
                                                             <input type="text" class="form-control" id="lastname-delete"
-                                                                   th:name="lastName" th:value="${user.lastName}" readonly>
+                                                                   th:name="lastName" th:value="${user.lastName}"
+                                                                   readonly>
                                                             <!-- DELETE USER: AGE -->
                                                             <label for="age-delete"
                                                                    class="font-weight-bold mt-3 mb-0">Age</label>
                                                             <input type="text" class="form-control" id="age-delete"
                                                                    th:name="lastName" th:value="${user.age}" readonly>
                                                             <!-- DELETE USER: EMAIL -->
-                                                            <label for="email-delete" class="font-weight-bold mt-3 mb-0">Email</label>
+                                                            <label for="email-delete"
+                                                                   class="font-weight-bold mt-3 mb-0">Email</label>
                                                             <input type="email" class="form-control" id="email-delete"
                                                                    th:name="email" th:value="${user.email}" readonly>
                                                             <!-- DELETE USER: PASSWORD -->
@@ -271,11 +286,8 @@
                                                 <br>
                                                 <select class="form-select w-100" size="2" id="new-role"
                                                         name="userRoles">
-                                                    <option
-                                                            th:each="role : ${roles}"
-                                                            th:text="${role}"
-                                                            selected>
-                                                    </option>
+                                                    <option th:each="role : ${roles}" th:text="${role}"
+                                                            selected></option>
                                                 </select>
                                                 <!-- NEW USER: SUBMIT -->
                                                 <button type="submit" class="btn btn-success mt-3 mb-0">Add new user
