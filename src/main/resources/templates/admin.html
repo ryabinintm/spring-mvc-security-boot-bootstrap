@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -8,7 +7,6 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-
 <!-- Navigation Header -->
 <div class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
@@ -24,19 +22,14 @@
         </div>
     </div>
 </div> <!-- /Navigation Header -->
-
 <div class="container-fluid">
     <div class="row">
         <!-- Left Column -->
-        <div class="col-md-2 bg-white">
-            <nav class="nav flex-column nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/user">User</a>
-                </li>
-            </nav>
+        <div class="col-md-2 bg-white mt-2">
+            <div class="list-group">
+                <a href="/admin" class="list-group-item list-group-item-action list-group-item-primary">Admin</a>
+                <a href="/user" class="list-group-item list-group-item-action list-group-item-primary">User</a>
+            </div>
         </div>
         <!-- Right Column -->
         <div class="col-md-10 bg-light mt-2">

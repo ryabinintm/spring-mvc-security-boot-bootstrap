@@ -14,25 +14,25 @@ import java.security.Principal;
 @RequestMapping(path = "/")
 public class UserController {
 
-	final UserService userService;
+    final UserService userService;
 
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-	@GetMapping(path = {"/", "login"})
-	public String loginPage() {
-		return "login";
-	}
+    @GetMapping(path = {"/", "login"})
+    public String loginPage() {
+        return "login";
+    }
 
-	@GetMapping(path = "user")
-	public String getUserList(Model model,
-							  Principal principal) {
-		model.addAttribute("principal", principal.getName());
-		model.addAttribute("authorities", "USER");
-		User user = userService.getUserByEmail(principal.getName());
-		model.addAttribute("user", user);
-		return "user";
-	}
+    @GetMapping(path = "user")
+    public String getUserList(Model model,
+                              Principal principal) {
+        model.addAttribute("principal", principal.getName());
+        model.addAttribute("authorities", "USER");
+        User user = userService.getUserByEmail(principal.getName());
+        model.addAttribute("user", user);
+        return "user";
+    }
 
 }

@@ -5,16 +5,16 @@
     <title>User</title>
 </head>
 <body>
-    <div>
-        <p th:text="${user}">USER</p>
-        <p th:each="role : ${user.getAuthorities()}" th:text="${role.getAuthority().toString() + ' '}"></p>
-        <hr>
-        <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">Edit</a>
-        <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.id})}">
-            <input type="submit" value="Delete">
-        </form>
+<div>
+    <p th:text="${user}">USER</p>
+    <p th:each="role : ${user.getAuthorities()}" th:text="${role.getAuthority().toString() + ' '}"></p>
+    <hr>
+    <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">Edit</a>
+    <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.id})}">
+        <input type="submit" value="Delete">
+    </form>
 
-    </div>
-    <div th:replace="fragments/template :: logout"></div>
+</div>
+<div th:replace="fragments/template :: logout"></div>
 </body>
 </html>

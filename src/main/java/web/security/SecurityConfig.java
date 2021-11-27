@@ -35,23 +35,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests((authorize) -> authorize
-                    .antMatchers("/login").anonymous()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                    .anyRequest().authenticated()
+                        .antMatchers("/login").anonymous()
+                        .antMatchers("/admin/**").hasRole("ADMIN")
+                        .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                        .anyRequest().authenticated()
                 )
                 .formLogin((formLogin) -> formLogin
-                    .loginPage("/login")
-                    .successHandler(loginSuccessHandler)
-                    .loginProcessingUrl("/login")
-                    .usernameParameter("j_username")
-                    .passwordParameter("j_password")
-                    .permitAll()
+                        .loginPage("/login")
+                        .successHandler(loginSuccessHandler)
+                        .loginProcessingUrl("/login")
+                        .usernameParameter("j_username")
+                        .passwordParameter("j_password")
+                        .permitAll()
                 )
                 .logout((logout) -> logout
-                    .permitAll()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login?logout")
                 )
                 .csrf().disable();
     }
